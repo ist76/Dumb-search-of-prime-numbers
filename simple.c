@@ -16,7 +16,7 @@ int main(void)
     }
 
     printf_s("\n%6i \t", 3); /*the number 3 is always displayed*/
-    for (int i = 5; i <= n; i += 2) /*We don’t check even candidate numbers*/
+    for (int i = 5; i <= n; i += 2) /*We don't check even numbers*/
     {
         if (prime(i) != 0) /*display a candidate number if the check function does not return "0"*/
         {
