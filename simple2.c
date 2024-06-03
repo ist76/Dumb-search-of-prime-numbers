@@ -44,9 +44,11 @@ int main(void)
 the function is passed a candidate, the number of prime numbers found and an array with them*/
 int prime(int p, int qex, int primes_ex[])
 {
-    for (int j = 0; j < qex; j++) /*FIXME! the divisor must be taken <= the root of p */
+    int max_dividor = p*p;
+    for (int j = 0; j < qex; j++)
     {
-        if (p % primes_ex[j] == 0) return 0;           
+        if (primes_ex[j] >= max_dividor) return 0;
+        if (p % primes_ex[j] == 0) return 0;
     }
     return p;
 }
