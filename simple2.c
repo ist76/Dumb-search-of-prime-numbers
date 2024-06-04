@@ -4,7 +4,7 @@
 
 # define COLUMN 25 /*displays the specified number of numbers in a row*/
 
-int prime(int p, int qex, const int primes_ex[]); /*prime number test function prototype*/
+int prime(int p, const int primes_ex[]); /*prime number test function prototype*/
 
 int main(void)
 {
@@ -26,7 +26,7 @@ int main(void)
 
     for (int i = 5; i <= n; i += 2) /*We don’t check even candidate numbers*/
     {
-        if (prime(i, q, primes) != 0) /*display a candidate number if the check function does not return "0"*/
+        if (prime(i, primes) != 0) /*display a candidate number if the check function does not return "0"*/
         {
             printf_s("%6i \t", i);
             primes[q] = i;
@@ -34,6 +34,7 @@ int main(void)
             if (q % COLUMN == 0)
             {
                 primes = realloc(primes, ((q + COLUMN) * sizeof(int))); /*allocate more space for the array*/
+                if (primes == NULL) exit(0);
                 puts("");
             }
         }
@@ -44,12 +45,12 @@ int main(void)
 
 /*A little optimization: only prime divisors
 the function is passed a candidate, the number of prime numbers found and an array with them*/
-int prime(int p, int qex, const int primes_ex[])
+int prime(int p, const int primes_ex[])
 {
-int countr = 0;
-do
-{
-    if (p % primes_ex[countr++] == 0) return 0;
-} while (primes_ex[countr-1]*primes_ex[countr-1] < p);
-return p;
+    int countr = 0;
+    for (int j = 0; primes_ex[j]*primes_ex[j] < p;)
+    {
+        if (p % primes_ex[j++] == 0) return 0;
+    }
+    return p;
 }
