@@ -4,12 +4,14 @@
 
 # define COLUMN 25 /*displays the specified number of numbers in a row*/
 
-int prime(int p, int qex, int primes_ex[]); /*prime number test function prototype*/
+int prime(int p, int qex, const int primes_ex[]); /*prime number test function prototype*/
 
 int main(void)
 {
-    int n, q, correct; /*upper limit, found counter, correctness flag*/
-    int *primes = malloc(COLUMN * sizeof(int)); /*array with found primes*/
+    int n = 0;
+    int q = 0;
+    int correct = 0; /*upper limit, found counter, correctness flag*/
+    int* primes = malloc(COLUMN * sizeof(int)); /*array with found primes*/
 
     puts("Enter an upper limit for finding prime numbers:");
     correct = scanf_s("%i", &n); /*checking the correctness of the upper bound entered by the user*/
@@ -32,21 +34,22 @@ int main(void)
             if (q % COLUMN == 0)
             {
                 primes = realloc(primes, ((q + COLUMN) * sizeof(int))); /*allocate more space for the array*/
-                puts("");               
+                puts("");
             }
-        }     
+        }
     }
     free(primes);
-    return 0;    
+    return 0;
 }
 
 /*A little optimization: only prime divisors
 the function is passed a candidate, the number of prime numbers found and an array with them*/
-int prime(int p, int qex, int primes_ex[])
+int prime(int p, int qex, const int primes_ex[])
 {
-    for (int j = 0; j < qex; j++) /*FIXME! the divisor must be taken <= the root of p */
-    {
-        if (p % primes_ex[j] == 0) return 0;
-    }
-    return p;
+int countr = 0;
+do
+{
+    if (p % primes_ex[countr++] == 0) return 0;
+} while (primes_ex[countr-1]*primes_ex[countr-1] < p);
+return p;
 }
