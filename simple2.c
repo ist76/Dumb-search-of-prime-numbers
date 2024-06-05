@@ -12,6 +12,7 @@ int main(void)
     int q = 0;
     int correct = 0; /*upper limit, found counter, correctness flag*/
     int* primes = malloc(COLUMN * sizeof(int)); /*array with found primes*/
+    if (primes == NULL) return 0;
 
     puts("Enter an upper limit for finding prime numbers:");
     correct = scanf_s("%i", &n); /*checking the correctness of the upper bound entered by the user*/
@@ -21,10 +22,10 @@ int main(void)
         return(0);
     }
 
-    printf_s("\n%6i \t", 3); /*the number 3 is always displayed*/
-    primes[q++] = 3;
+    printf_s("\n%6i \t", 2); /*the number 2 is always displayed*/
+    primes[q++] = 2;
 
-    for (int i = 5; i <= n; i += 2) /*We don’t check even candidate numbers*/
+    for (int i = 3; i <= n; i += 2) /*We don’t check even candidate numbers*/
     {
         if (prime(i, primes) != 0) /*display a candidate number if the check function does not return "0"*/
         {
@@ -34,7 +35,7 @@ int main(void)
             if (q % COLUMN == 0)
             {
                 primes = realloc(primes, ((q + COLUMN) * sizeof(int))); /*allocate more space for the array*/
-                if (primes == NULL) exit(0);
+                if (primes == NULL) return 0;
                 puts("");
             }
         }
@@ -43,8 +44,7 @@ int main(void)
     return 0;
 }
 
-/*A little optimization: only prime divisors
-the function is passed a candidate, the number of prime numbers found and an array with them*/
+/* Accepts a candidate number and matches the found primes, gives the number itself if it is prime or 0 */
 int prime(int p, const int primes_ex[])
 {
     int countr = 0;
