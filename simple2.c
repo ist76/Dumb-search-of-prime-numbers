@@ -23,7 +23,7 @@ int main(void)
     }
 
     printf_s("\n%6i \t", 2); /*the number 2 is always displayed*/
-    primes[q++] = 2;
+    primes[q++] = 0;
 
     for (int i = 3; i <= n; i += 2) /*We don’t check even candidate numbers*/
     {
