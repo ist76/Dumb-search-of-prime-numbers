@@ -7,7 +7,7 @@
 int prime(int p, const int primes_ex[]); /*prime number test function prototype*/
 int n_get(void);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int n = 0;
     int columns = COLUMN;
@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
     if (n == 0) return(0);
     printf_s("\n%6i \t", 2); /* the number 2 is always displayed */
-    int* primes = malloc(columns * sizeof(int)); /* array with found primes */
+    int *primes = malloc(columns * sizeof(int)); /* array with found primes */
     if (primes == NULL) return 0;
     int q = 0;
     primes[q++] = 2;
@@ -32,8 +32,8 @@ int main(int argc, char* argv[])
             q++;
             if (q % columns == 0)
             {
-                primes = realloc(primes, ((q + columns) * sizeof(int))); /*allocate more space for the array*/
-                if (primes == NULL) return 0;
+                /*allocate more space for the array*/
+                if ((primes = realloc(primes, ((q + columns) * sizeof(int)))) == NULL) return 0;
                 puts("");
             }
         }
